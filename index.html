@@ -1,19 +1,32 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Student List</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
 </head>
 <body>
+    <h1>Student List</h1>
+    <ul id="student-list"></ul>
+
     <script>
         axios.get('https://flask-deploy-basic.onrender.com//students').then(res => {
             console.log(res.data);
-            res.data.map(student => console.log(`student is: ${student.name}`))
+            const studentListElement = document.getElementById('student-list');
+            res.data.forEach(student => {
+                const listItem = document.createElement('li');
+                listItem.textContent = student.name;
+                studentListElement.appendChild(listItem);
+            });
         })
+        .catch(error => {
+            console.error('Error retrieving student list:', error);
+        });
     </script>
 </body>
 </html>
